@@ -9,7 +9,7 @@
   <link rel="icon"
     href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/155/ear-of-maize_1f33d.png" />
 
-  <title>Fresh Avocados 🥑 /// NODE FARM</title>
+  <title>{%productName%} {%image%} /// NODE FARM</title>
 
   <style>
     *,
@@ -273,36 +273,31 @@
         <span class="emoji-left">👈</span>Back
       </a>
       <div class="product__hero">
-        <span class="product__emoji product__emoji--1">🥑</span>
-        <span class="product__emoji product__emoji--2">🥑</span>
-        <span class="product__emoji product__emoji--3">🥑</span>
-        <span class="product__emoji product__emoji--4">🥑</span>
-        <span class="product__emoji product__emoji--5">🥑</span>
-        <span class="product__emoji product__emoji--6">🥑</span>
-        <span class="product__emoji product__emoji--7">🥑</span>
-        <span class="product__emoji product__emoji--8">🥑</span>
-        <span class="product__emoji product__emoji--9">🥑</span>
+        <span class="product__emoji product__emoji--1">{%image%}</span>
+        <span class="product__emoji product__emoji--2">{%image%}</span>
+        <span class="product__emoji product__emoji--3">{%image%}</span>
+        <span class="product__emoji product__emoji--4">{%image%}</span>
+        <span class="product__emoji product__emoji--5">{%image%}</span>
+        <span class="product__emoji product__emoji--6">{%image%}</span>
+        <span class="product__emoji product__emoji--7">{%image%}</span>
+        <span class="product__emoji product__emoji--8">{%image%}</span>
+        <span class="product__emoji product__emoji--9">{%image%}</span>
       </div>
-      <h2 class="product__name">Abacates frescos</h2>
+      <h2 class="product__name">{%productName%}</h2>
       <div class="product__details">
-        <p><span class="emoji-left">🌍</span>De Portugal</p>
-        <p><span class="emoji-left">❤️</span>Vitamina B e K</p>
-        <p><span class="emoji-left">📦</span>4 🥑</p>
-        <p><span class="emoji-left">🏷</span>R$6.50</p>
+        <p><span class="emoji-left">🌍</span>De {%from%}</p>
+        <p><span class="emoji-left">❤️</span>{%nutrients%}</p>
+        <p><span class="emoji-left">📦</span>{%quantity%}</p>
+        <p><span class="emoji-left">🏷</span>R${%price%}</p>
       </div>
 
       <a href="#" class="product__link">
         <span class="emoji-left">🛒</span>
-        <span>Adicionar ao Carrinho (R$6.50)</span>
+        <span>Adicionar ao Carrinho (R${%price%})</span>
       </a>
 
       <p class="product__description">
-        Um abacate maduro cede à pressão suave quando segurado na palma da mão e espremido. A fruta não é doce, mas de
-        sabor distinto e sutil, com textura suave. O abacate é popular na culinária vegetariana como substituto de
-        carnes em sanduíches e saladas devido ao seu alto teor de gordura. Geralmente, o abacate é servido cru, embora
-        algumas cultivares, incluindo o comum 'Hass', possam ser cozidas por um curto período de tempo sem ficarem
-        amargas. É usado como base para o molho mexicano conhecido como guacamole, bem como para barrar tortilhas de
-        milho ou torradas, servido com especiarias.
+        {%description%}
       </p>
     </figure>
 

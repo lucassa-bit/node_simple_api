@@ -40,14 +40,27 @@ const database = JSON.parse(fs.readFileSync('./dev-data/data.json'));
 const server = http.createServer((req, res) => {
     const {pathname, query} = url.parse(req.url, true);
 
-    if(pathname === '/alimentos') {
+    if(pathname === '/fazenda') {
+
+    }
+    else if(pathname === '/alimentos') {
+        res.writeHead(200, {
+            'Content-type': 'Application/json'
+        });
         res.end(JSON.stringify(database));
     }
     else if(pathname === '/alimento') {
+        res.writeHead(200, {
+            'Content-type': 'Application/json'
+        });
         res.end(JSON.stringify(database[query.id]))
     }
     else {
-        res.end('ERRO');
+        res.writeHead(404, {
+            helloWorld: 'helloWorld',
+            'Content-type': 'text/html'
+        });
+        res.end('<h1>ERRO</h1>');
     }    
 });
 
