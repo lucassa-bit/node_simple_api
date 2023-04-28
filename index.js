@@ -3,6 +3,9 @@ const http = require('http');
 const url = require('url');
 
 const database = JSON.parse(fs.readFileSync('./dev-data/data.json'));
+const produto = fs.readFileSync('./templates/product.html', 'utf-8');
+const paginaInicial = fs.readFileSync('./templates/overview.html', 'utf-8');
+const card = fs.readFileSync('./templates/card.html', 'utf-8');
 
 // READ AND WRITE TXT
 // const input = 'Arthur vai trazer comida pra nós próxima semana';
@@ -37,11 +40,34 @@ const database = JSON.parse(fs.readFileSync('./dev-data/data.json'));
 // });
 
 // -------------------- DIREÇÕES DO SERVIDOR ---------------------- // 
+const replaceTemplate = (temp, product) => {
+    let returnValue = temp;
+    // {%image%} => "🥑"
+    Object.keys(product).forEach(
+        (value) => {
+            returnValue = returnValue.replaceAll(`{%${value}%}`, product[value]);
+        }
+    );
+
+    return returnValue;
+};
+
+
 const server = http.createServer((req, res) => {
     const {pathname, query} = url.parse(req.url, true);
 
-    if(pathname === '/fazenda') {
-
+    if(pathname === '/') {
+        res.writeHead(200, {
+            'Content-type': 'text/html'
+        });
+       
+        res.end(paginaInicial);
+    }
+    else if(pathname === '/produto') {
+        res.writeHead(200, {
+            'Content-type': 'text/html'
+        });
+        res.end(replaceTemplate(produto, database[1]));
     }
     else if(pathname === '/alimentos') {
         res.writeHead(200, {
