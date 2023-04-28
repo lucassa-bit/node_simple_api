@@ -1,6 +1,7 @@
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
+const replaceTemplate = require('./modules/replaceTemplate');
 
 const database = JSON.parse(fs.readFileSync('./dev-data/data.json'));
 const produto = fs.readFileSync('./templates/product.html', 'utf-8');
@@ -40,42 +41,30 @@ const card = fs.readFileSync('./templates/card.html', 'utf-8');
 // });
 
 // -------------------- DIREÇÕES DO SERVIDOR ---------------------- // 
-const replaceTemplate = (temp, product) => {
-    let returnValue = temp;
-    // {%image%} => "🥑"
-    Object.keys(product).forEach(
-        (value) => {
-            returnValue = returnValue.replaceAll(`{%${value}%}`, product[value]);
-        }
-    );
-
-    return returnValue;
-};
-
-
 const server = http.createServer((req, res) => {
-    const {pathname, query} = url.parse(req.url, true);
+    const { pathname, query } = url.parse(req.url, true);
+    if (pathname === '/' || pathname === '/overview') {
+        res.writeHead(200, {
+            'Content-type': 'text/html'
+        });
 
-    if(pathname === '/') {
+        const cards = database.map(data => replaceTemplate(card, data)).join('');
+        const page = paginaInicial.replace('{%CARDS%}', cards);
+        res.end(page);
+    }
+    else if (pathname === '/produto' && query.id !== undefined && query.id >= 0 && query.id <= 4) {
         res.writeHead(200, {
             'Content-type': 'text/html'
         });
-       
-        res.end(paginaInicial);
+        res.end(replaceTemplate(produto, database[query.id]));
     }
-    else if(pathname === '/produto') {
-        res.writeHead(200, {
-            'Content-type': 'text/html'
-        });
-        res.end(replaceTemplate(produto, database[1]));
-    }
-    else if(pathname === '/alimentos') {
+    else if (pathname === '/alimentos') {
         res.writeHead(200, {
             'Content-type': 'Application/json'
         });
         res.end(JSON.stringify(database));
     }
-    else if(pathname === '/alimento') {
+    else if (pathname === '/alimento') {
         res.writeHead(200, {
             'Content-type': 'Application/json'
         });
@@ -87,7 +76,7 @@ const server = http.createServer((req, res) => {
             'Content-type': 'text/html'
         });
         res.end('<h1>ERRO</h1>');
-    }    
+    }
 });
 
 server.listen(8080, '127.0.0.1', () => {
